@@ -1,8 +1,10 @@
 ---
 title: Shadowsocks代理简介和配置
 date: 2016-12-06 16:54:13
+categories: 工具
 tags: 
 - shadowsocks
+- proxychains
 ---
 
 # Shadowsocks简介
@@ -110,7 +112,13 @@ nohup sslocal -c ~/shadowsocks/config.json &
 
 如果需要在命令行终端中使用shadowsocks的代理，可以使用[proxychains](https://github.com/rofl0r/proxychains-ng)，使用方法可参考[Using Shadowsocks with Command Line Tools](https://github.com/shadowsocks/shadowsocks/wiki/Using-Shadowsocks-with-Command-Line-Tools)。
 
-Mac OS下用homebrew安装成功后，直接修改配置文件`/usr/local/etc/proxychains.conf`，在该文件末尾输入正确的socks代理地址，比如这里是`socks5 127.0.0.1 1080`。配置文件中的其他选项可以保留默认值，也可以参考官方文档进行配置。
+Mac OSX下可以直接用homebrew安装：
+
+```
+brew install proxychains-ng
+```
+
+安装成功后可修改配置文件`/usr/local/etc/proxychains.conf`，在该文件末尾输入正确的socks代理地址，比如这里是`socks5 127.0.0.1 1080`。配置文件中的其他选项可以保留默认值，也可以参考官方文档进行配置。
 
 之后就可以按下面方式显示使用代理，非常灵活：
 
