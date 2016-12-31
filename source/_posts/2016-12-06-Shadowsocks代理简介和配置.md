@@ -104,4 +104,28 @@ nohup sslocal -c ~/shadowsocks/config.json &
 </plist>
 ```
 
-注意正确配置`ProgramArguments`和`WorkingDirectory`。`WorkingDirectory`为Shadowsocks配置文件所在目录。之后每次重启，`sslocal`都会自动运行。完毕。
+注意正确配置`ProgramArguments`和`WorkingDirectory`。`WorkingDirectory`为Shadowsocks配置文件所在目录。之后每次重启，`sslocal`都会自动运行。
+
+## 命令行终端使用代理
+
+如果需要在命令行终端中使用shadowsocks的代理，可以使用[proxychains](https://github.com/rofl0r/proxychains-ng)，使用方法可参考[Using Shadowsocks with Command Line Tools](https://github.com/shadowsocks/shadowsocks/wiki/Using-Shadowsocks-with-Command-Line-Tools)。
+
+Mac OS下用homebrew安装成功后，直接修改配置文件`/usr/local/etc/proxychains.conf`，在该文件末尾输入正确的socks代理地址，比如这里是`socks5 127.0.0.1 1080`。配置文件中的其他选项可以保留默认值，也可以参考官方文档进行配置。
+
+之后就可以按下面方式显示使用代理，非常灵活：
+
+```
+proxychains4 curl https://www.facebook.com/
+proxychains4 -q git push origin master
+```
+
+另外，也可以先把sock5代理转为http代理后给命令行使用。代理转换可以使用[privoxy](http://www.privoxy.org/)实现。另外，[stunnel](https://www.stunnel.org/)可以实现数据传输的加密。转成http代理之后，通过设置`http_proxy`和`https_proxy`环境变量实现，如：
+
+```
+export http_proxy="http://username:password@proxy.domain.com:9999"
+export https_proxy="http://username:password@proxy.domain.com:9999"
+```
+
+但这种方式是命令行下的全局代理，开关代理较为麻烦。
+
+完毕。
